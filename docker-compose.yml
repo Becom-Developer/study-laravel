@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  web:
+    container_name: ctr-study-laravel
+    build:
+      context: .
+    image: img-study-laravel
+    ports:
+      - '8100:80'
+    volumes:
+      - .:/usr/src/app
+  db:
+    container_name: ctr-study-laravel-db
+    image: mysql:8.0.31
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: study
+      MYSQL_DATABASE: forge
+      MYSQL_USER: forge
+    volumes:
+      - mysql_study:/var/lib/mysql
+  phpmyadmin:
+    container_name: ctr-study-laravel-phpmyadmin
+    image: phpmyadmin:5.2.0-apache
+    restart: always
+    ports:
+      - 8200:80
+    environment:
+      PMA_HOST: 'db'
+      PMA_USER: 'root'
+      PMA_PASSWORD: 'study'
+
+volumes:
+  mysql_study:
+    external: true

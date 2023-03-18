@@ -2,6 +2,86 @@
 
 laravel 学習用
 
+## Work
+
+アプリケーション起動方法の例
+
+```bash
+docker-compose up
+```
+
+終了時 `control + c`
+
+起動中のコンテナの中に入る (コンテナ起動中にもう一つコンソール画面立ち上げ)
+
+```bash
+docker exec -it ctr-study-laravel bash
+```
+
+データベースの状況を確認（phpmyadmin）
+
+- <http://localhost:8200>
+
+## Build Setup
+
+初動時の設定について
+
+- 事前に docker を導入して使えるようにしておく
+  - 参考: <https://docs.docker.com/get-docker/>
+
+git clone 後に docker を使い docker volume 作成後コンテナを起動させてください。
+
+```bash
+git@github.com:Becom-Developer/study-laravel.git
+git clone git@github.com:Becom-Developer/study-laravel.git
+cd study-laravel
+docker volume create mysql_study
+docker-compose up --build
+```
+
+- コンテナ立ち上げ後に phpmyadmin でデータベースの設定 <http://localhost:8200>
+  - データベース「forge」の存在確認
+    - 照合順序が標準の「utf8mb4_0900_ai_ci」作成されている
+  - データベースのユーザーを作成
+    - ユーザーアカウント作成、ユーザー名「forge」を作成、パスワードなし、権限は全て許可
+
+もうひとつコンソール立ち上げ、コンテナの中でモジュールインストールと `.env` ファイル作成
+
+```bash
+docker-compose exec web composer update
+docker-compose exec web cp .env.example .env
+docker-compose exec web php artisan key:generate
+```
+
+`.env` ファイルのdb設定は下記のようにしておく
+
+```text
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=forge
+DB_USERNAME=forge
+DB_PASSWORD=
+```
+
+マイグレーション実行
+
+```bash
+docker-compose exec web php artisan migrate
+```
+
+web ブラウザで下記のURLをアクセスして正常に表示されていることを確認
+
+- url: <http://localhost:8100>
+
+docker-compose を終了させるときは `control + c`
+
+初動時以外の通常の起動は
+
+```bash
+docker-compose up
+```
+
 ## Environment
 
 初動時の環境構築に関するメモ
