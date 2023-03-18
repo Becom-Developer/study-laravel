@@ -32,7 +32,6 @@ docker exec -it ctr-study-laravel bash
 git clone 後に docker を使い docker volume 作成後コンテナを起動させてください。
 
 ```bash
-git@github.com:Becom-Developer/study-laravel.git
 git clone git@github.com:Becom-Developer/study-laravel.git
 cd study-laravel
 docker volume create mysql_study
