@@ -22,6 +22,27 @@ docker exec -it ctr-study-laravel bash
 
 - <http://localhost:8200>
 
+## Cheat Sheet
+
+- web 画面のルーティング
+  - `routes/web.php`
+- web 画面のテンプレート
+  - `resources/views/`
+- テストコード
+  - `tests/Feature/` コントローラのテストなど
+  - `tests/Unit/` モデルロジックファイルの単体テストなど
+  - `phpunit.xml` テスト実行時の設定ファイル
+  - `docker-compose exec web php artisan make:test ***Test` テストコードファイル作成
+  - `docker-compose exec web php artisan test tests/Feature/***Test.php` 特定のテストコードファイル実行
+- データベース
+  - `database/migrations/` データベース関連の定義
+- web コントローラー
+  - `app/Http/Controllers/` http リクエストのコントローラー
+- 開発用メール送信の確認
+  - `localhost:8025` mailpit, laravel 9 以降で利用可能
+- イベント
+  - `docker-compose exec web php artisan event:generate` リスナーファイル作成
+
 ## Build Setup
 
 初動時の設定について
