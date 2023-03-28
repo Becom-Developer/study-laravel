@@ -34,10 +34,16 @@ docker exec -it ctr-study-laravel bash
   - `phpunit.xml` テスト実行時の設定ファイル
   - `docker-compose exec web php artisan make:test ***Test` テストコードファイル作成
   - `docker-compose exec web php artisan test tests/Feature/***Test.php` 特定のテストコードファイル実行
+  - `phpunit.xml` テストコード実行時の設定
+    - `<env name="DB_CONNECTION" value="sqlite"/>` sqliteでデータ準備
+    - `<env name="DB_DATABASE" value=":memory:"/>` テスト実行後は消滅
+    - `<env name="LOG_CHANNEL" value="stderr"/>` ログの出力先をコンソール画面へ
+  - `\Log::info('log--->', ['data--->',$data]);` ログ出力の例
 - データベース
   - `database/migrations/` データベース関連の定義
 - web コントローラー
   - `app/Http/Controllers/` http リクエストのコントローラー
+  - `docker-compose exec web php artisan make:controller ***Controller` コントローラーファイル作成
 - 開発用メール送信の確認
   - `localhost:8025` mailpit, laravel 9 以降で利用可能
 - イベント
